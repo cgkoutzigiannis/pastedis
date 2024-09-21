@@ -14,35 +14,27 @@ import environ
 import os
 from pathlib import Path
 
-env = environ.Env(
-    DEBUG=(bool, False)
-)
+env = environ.Env(DEBUG=(bool, False))
 
-env = environ.Env(
-    SESSION_COOKIE_SECURE=(bool, False)
-)
+env = environ.Env(SESSION_COOKIE_SECURE=(bool, False))
 
-env = environ.Env(
-    CSRF_COOKIE_SECURE=(bool, False)
-)
+env = environ.Env(CSRF_COOKIE_SECURE=(bool, False))
 
-env = environ.Env(
-    ALLOWED_HOSTS=(list, [])
-)
+env = environ.Env(ALLOWED_HOSTS=(list, []))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'), overwrite=True)
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"), overwrite=True)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env.str('SECRET_KEY')
+SECRET_KEY = env.str("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DEBUG')
+DEBUG = env.bool("DEBUG")
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
@@ -150,5 +142,5 @@ SESSION_COOKIE_SECURE = env.bool("SESSION_COOKIE_SECURE")
 CSRF_COOKIE_SECURE = env.bool("CSRF_COOKIE_SECURE")
 
 STATIC_URL = "static/"
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
-STATICFILES_DIRS = [BASE_DIR / "static"]  
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles/")
+STATICFILES_DIRS = [BASE_DIR / "static"]
