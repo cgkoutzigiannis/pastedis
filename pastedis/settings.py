@@ -44,8 +44,6 @@ SECRET_KEY = env.str('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG')
 
-print(f"DEBUG: {DEBUG}")
-
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
 # Application definition
@@ -150,3 +148,7 @@ LOGOUT_REDIRECT_URL = "home"
 SESSION_COOKIE_SECURE = env.bool("SESSION_COOKIE_SECURE")
 
 CSRF_COOKIE_SECURE = env.bool("CSRF_COOKIE_SECURE")
+
+STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
+STATICFILES_DIRS = [BASE_DIR / "static"]  
