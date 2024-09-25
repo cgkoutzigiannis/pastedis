@@ -1,3 +1,5 @@
 [flake8]
 exclude = static, staticfiles, .venv, *migrations/*
 max-line-length = 88
+per-file-ignores =
+    pastedis/settings.py:E501
