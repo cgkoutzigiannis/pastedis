@@ -1,6 +1,25 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Home{% endblock %}
+
+{% block head %}
+<style type="text/css" media="screen">
+  #editor {
+      width: 50%;
+      height: 50vh;
+  }
+
+  .container {
+      display: flex;
+      align-items: center;
+      /* Center vertically */
+      justify-content: center;
+      /* Center horizontally */
+      width: 100%;
+  }
+</style>  
+{% endblock %}
 
 {% block content %}
 {% if user.is_authenticated %}
@@ -13,4 +32,52 @@ Hi {{ user.username }}!
 <p>You are not logged in</p>
 <a href="{% url 'login' %}">Log In</a>
 {% endif %}
+<form id="add_snippet" action="/" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <div id="editor">function foo(items) {
+  var x = "All this is syntax highlighted";
+  return x;
+}
+</div>
+    <input type="submit" value="Submit">
+</form>
+
+<script src="{% static 'ace-builds/src-noconflict/ace.js' %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static 'ace-builds/src-noconflict/ext-modelist.js' %}" type="text/javascript" charset="utf-8"></script>
+    <script>
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/monokai");
+        editor.session.setMode("ace/mode/javascript");
+        // Get the modelist from ace's ext-modelist.js
+        var modelist = ace.require('ace/ext/modelist');
+
+        // Log all the supported modes
+        console.log("Supported Modes:", modelist.modes);
+        var selectElement = document.getElementById('id_language');
+        for (var i = 0; i <= modelist.modes.length-1; i++) {
+            if (modelist.modes[i].name == "javascript") {
+                console.log("I AM HERE")
+                selectElement.add(new Option(modelist.modes[i].caption, modelist.modes[i].mode, true, true));
+            } else {
+                selectElement.add(new Option(modelist.modes[i].caption, modelist.modes[i].mode));    
+            }
+        }
+        // selectElement.addEventListener("input", () => {
+        //     console.log("Hello, World");
+        // })
+
+        selectElement.oninput = function(e){
+            const value = selectElement.value;
+            console.log(value);
+            editor.session.setMode(value);
+        };
+        const form = document.getElementById("add_snippet");
+        form.addEventListener("submit", () => {
+          const hidden_code = document.getElementById("id_code");
+          hidden_code.value = editor.getValue()
+        });
+
+
+    </script>
 {% endblock %}
