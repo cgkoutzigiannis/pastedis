@@ -1,0 +1,34 @@
+[project]
+name = "pastedis"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "Christos Gkoutzigiannis", email = "cgkoutzigiannis@gmail.com"},
+]
+dependencies = [
+    "Django==5.1.1",
+    "django-environ==0.11.2",
+    "black>=24.8.0",
+    "isort>=5.13.2",
+]
+requires-python = "==3.12.*"
+readme = "README.md"
+license = {text = "MIT"}
+
+
+[tool.pdm]
+distribution = false
+
+[tool.black]
+line-length = 88
+exclude = """
+static/*
+"""
+extend-exclude = """
+.venv/*
+"""
+
+[tool.isort]
+profile = "black"
+skip = ["static", ".venv"]
+line_length = 88
