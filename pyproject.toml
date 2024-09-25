@@ -10,6 +10,7 @@ dependencies = [
     "django-environ==0.11.2",
     "black>=24.8.0",
     "isort>=5.13.2",
+    "flake8>=7.1.1",
 ]
 requires-python = "==3.12.*"
 readme = "README.md"
@@ -21,14 +22,16 @@ distribution = false
 
 [tool.black]
 line-length = 88
-exclude = """
-static/*
-"""
-extend-exclude = """
-.venv/*
-"""
+exclude = "(.venv*|static*|staticfiles*)"
 
 [tool.isort]
 profile = "black"
-skip = ["static", ".venv"]
+skip = ["static", ".venv", "staticfiles/"]
 line_length = 88
+
+[tool.pdm.scripts]
+lint = "flake8 ."
+format = "black ."
+sort = "isort ."
+all = {composite = ["format", "sort", "lint"]}
+

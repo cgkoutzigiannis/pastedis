@@ -1,4 +1,5 @@
 from django.shortcuts import render
+
 from .forms import SnippetForm
 from .models import Snippet
 
